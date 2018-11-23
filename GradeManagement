@@ -1,0 +1,94 @@
+package com.zhbit;
+
+import java.util.*;
+
+public class GradeManagement {
+
+	public static void main(String[] args) {
+		Student s1 = new Student("S001", "郑东红");
+		Student s2 = new Student("S002", "陈明丽");
+		Student s3 = new Student("S003", "黄文杰");
+		Course c1 = new Course("C001", "嵌入式编程原理");
+		Course c2 = new Course("C002", "计算机专业英语");
+		Course c3 = new Course("C003", "微机接口与技术");
+		Grade g1 = new Grade("S001", "C001", 76);
+		Grade g2 = new Grade("S001", "C002", 90);
+		Grade g3 = new Grade("S001", "C003", 67);
+		Grade g4 = new Grade("S002", "C001", 82);
+		Grade g5 = new Grade("S002", "C002", 73);
+		Grade g6 = new Grade("S002", "C003", 85);
+		Grade g7 = new Grade("S003", "C001", 92);
+		Grade g8 = new Grade("S003", "C002", 81);
+		Grade g9 = new Grade("S003", "C003", 83);
+		List<Student> Stus = new ArrayList<Student>();
+		List<Course> Cous = new ArrayList<Course>();
+		List<Grade> Gras = new ArrayList<Grade>();
+		Stus.add(s1);
+		Stus.add(s2);
+		Stus.add(s3);
+		Cous.add(c1);
+		Cous.add(c2);
+		Cous.add(c3);
+		Gras.add(g1);
+		Gras.add(g2);
+		Gras.add(g3);
+		Gras.add(g4);
+		Gras.add(g5);
+		Gras.add(g6);
+		Gras.add(g7);
+		Gras.add(g8);
+		Gras.add(g9);
+		System.out.println("学号\t姓名\t课程编号\t课程名称\t\t成绩");
+		for (Grade g : Gras) {
+			for (Student s : Stus) {
+				if (g.num.equals(s.num)) {
+					System.out.print(g.num + "\t" + s.name + "\t");
+					// System.out.println();
+					break;
+				}
+			}
+			// System.out.print("...");
+			for (Course c : Cous) {
+				if (g.CourseNum.equals(c.CourseNum)) {
+					System.out.print(g.CourseNum + "\t" + c.CourseName + "\t" + g.Grades);
+					System.out.println();
+					break;
+				}
+			}
+		}
+
+		System.out.println("\n*****************************************");
+
+		int[] count = new int[Cous.size()];
+		int[] sums = new int[Cous.size()];
+
+		for (int i = 0; i < Cous.size(); i++) {
+			for (int j = 0; j < Gras.size(); j++) {
+				if (Cous.get(i).CourseNum.equals(Gras.get(j).CourseNum)){
+					count[i]++;
+					sums[i] = sums[i] + Gras.get(j).Grades;
+				}
+			}
+		}
+
+		TreeMap<String, Integer> total = new TreeMap<String, Integer>();
+		
+		for(int i = 0;i<Cous.size();i++){
+			if(count[i]>0){
+				total.put(Cous.get(i).CourseNum,sums[i]/count[i]);
+			}
+		}
+		
+		System.out.println("课程编号\t课程名称\t\t平均分");
+		
+		for(String key:total.keySet()){
+			for(Course c:Cous){
+				if(key.equals(c.CourseNum)){
+					System.out.println(key+"\t"+c.CourseName+"\t"+total.get(key));
+					
+				}
+			}
+		}
+
+	}
+}
